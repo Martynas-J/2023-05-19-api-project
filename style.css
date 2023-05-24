@@ -1,0 +1,269 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+}
+header{
+    position:sticky;
+    top: 0;
+    background-color: rgba(6, 92, 252, 0.548);
+}
+nav{
+    padding-right: 30px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    gap: 20px
+}
+nav ul{
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display:flex;
+    justify-items: center;
+    gap: 10px 10px;
+}
+nav ul li a{
+    border: 3px solid black;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    transition-property: background, color;
+    transition-duration: 1s;
+}
+nav form {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+nav form input{
+    font-size: 20px;
+    border-radius: 5px;
+    border: 3px solid black;
+}
+nav ul li a:hover{
+    color: white;
+    background-color: black;
+}
+
+
+#posts-list{
+    padding-left: 20px;
+}
+#posts-list div{
+    margin-top: 20px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    border: 2px solid black;
+    align-items: center;
+    column-gap: 30px;
+}
+
+#posts-list h4{
+    border-bottom: 1px solid black;
+}
+#posts-list h4:hover{
+    font-style: italic;
+}
+#posts-list div:only-child{
+color: blue;
+}
+#posts-list h4 a{
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    font-family:'Courier New', Courier, monospace;
+}
+#posts-list h4 a:hover{
+    color: rgb(7, 119, 26);
+}
+#posts-list span a{
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#posts-list span a:hover{
+    color: rgb(43, 123, 228);
+    font-weight: 800;
+    font-size: 18px;
+}
+#users-list{
+    padding-left: 30px;
+}
+#users-list ul{
+    list-style: none;
+}
+#users-list ul li a{
+    color: black;
+    text-decoration: none;
+    font-family:monospace;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 30px;
+}
+#users-list ul li:hover{
+    list-style:circle;
+}
+#users-list ul li a:hover{
+    color: darkorange;
+    padding-left: 10px;
+}
+body>h1{
+    text-align: center;
+}
+#post>div{
+    padding: 20px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 3fr 1fr ;
+}
+#post>div h2{
+    text-transform: uppercase;
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:rgba(0, 102, 255, 0.192);
+    grid-column: span 3;
+    text-align: center;
+}
+#post>div h3{
+    background-color:rgba(179, 187, 199, 0.192);
+    border: 1px dotted black;
+    grid-column: span 3;
+    text-align: center;
+}
+#post a{
+    color: black;
+    transition-property: color, padding;
+    transition-duration: 2s;
+}
+#post a:hover{
+    font-weight: 800;
+    color: rgb(38, 10, 167);
+    padding-left: 30px;
+}
+#albums-list>div{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+    gap: 20px;
+}
+#albums-list>div>div{
+    text-align: center;
+}
+#albums-list>div>div h3{
+    text-transform: uppercase;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+#albums-list>div>div div a{
+    color: black;
+    font-size: 18px;
+    transition-property: padding, color;
+    transition-duration: 2s;
+
+}
+#albums-list>div>div div a:hover{
+    color:blue;
+    padding-left: 50px;
+
+}
+#albums-list>div>div :nth-child(3){
+    color:grey;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#album>div{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+#album>div h3{
+    font-size: 30px;
+    text-transform: uppercase;
+}
+#album>div>div{
+    font-size: 20px;
+    padding-bottom: 30px;
+}
+#album>div>div a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+#album>div>div a:hover{
+    color: blue;
+    font-weight: 800;
+}
+
+
+#user-data {
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+#user-data ul{
+    list-style: none;
+    border: 2px solid black;
+    margin: 0;
+    padding-left: 20px;
+
+}
+#user-data ul li:hover{
+    list-style:circle;
+}
+#user-data> *{
+    border: 2px solid black;
+    padding: 10px;
+    max-width: 300px;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.219);
+    transition: background-color 2s, margin 1s;
+}
+#user-data> *:hover{
+    background-color: rgb(145, 145, 145);
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+#user-data h2{
+    text-align: center;
+}
+#user-data a{
+    color: black;
+    text-decoration: none;
+    transition-property: color;
+    transition-duration: 0.5s;
+}
+#user-data a:hover{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+#search{
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:30px;
+
+}
+#search div{
+    max-width: 400px;
+    border: 2px solid black;
+    background-color: rgb(179, 179, 179);
+    padding: 20px;
+}
+#search div h1{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#search div a{
+    color:black
+}
+#search div a:hover{
+    color:grey;
+    font-style: italic;
+}

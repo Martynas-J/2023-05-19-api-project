@@ -12,7 +12,7 @@ function CreateUsersList(dataUsers) {
     let usersUl = document.createElement("ul") 
     dataUsers.forEach(element => {
         let userLi = document.createElement("li")
-        userLi.innerHTML = `<a href="./user.html">${element.name} ${element.posts.length}</a>`
+        userLi.innerHTML = `<a href="./user.html?id=${element.id}">${element.name} (${element.posts.length} posts)</a>`
         usersUl.append(userLi)
     });
     return usersUl

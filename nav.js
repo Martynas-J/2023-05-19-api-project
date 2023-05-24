@@ -3,6 +3,16 @@ function nav() {
     let header = document.createElement("header")
     let nav = document.createElement("nav")
     let ul = document.createElement("ul")
+    let searchForm = document.createElement("form")
+    let searchInput = document.createElement("input")
+    let searchSubmit = document.createElement("input")
+
+    searchForm.action = "search.html"
+    searchInput.type = "text"
+    searchInput.name = "search"
+    searchInput.placeholder = "Write text"
+    searchSubmit.type = "submit"
+    searchSubmit.value = "Search"
     ul.style.listStyleType = "none"
     let NavArr = [
         {
@@ -27,16 +37,24 @@ function nav() {
         let liNav = document.createElement("li")
         aNav.href = element.link
         aNav.textContent = element.text
-        aNav.style.color = "Grey"
         aNav.style.textDecoration = "none"
         ul.append(liNav)
         liNav.append(aNav)
         if (aNav.href === window.location.href) {
-            aNav.style.color = "black";
-          }
+            aNav.style.borderColor = "green";
+        }
     });
     body.prepend(header)
     header.append(nav)
-    nav.append(ul)
-    
+    searchForm.append(searchInput, searchSubmit)
+    nav.append(ul, searchForm)
 }
+
+
+// export {nav};
+
+// 9. Sukurti paieškos funkcionalumą navigacijos elemente:
+// 9.1. Navigacijos elemente sukurti formą, kuri turi text tipo input elementą (nepamiršti pridėti name atributą).
+// 9.2. Formos submit metu, naudojant action atributą, nukreipti į naują puslapį (search.html).
+// 9.3. Šiame puslapyje atvaizduoti paieškos rezultatą.
+// 9.3.1. Jeigu nėra tinkamų rezultatų, tai parašyti jog rezultatų pagal užklausą nerasta.

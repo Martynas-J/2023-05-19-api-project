@@ -12,20 +12,24 @@ async function albums() {
 function CreateAlbumsList(data) {
     let albumsDiv = document.createElement("div")
     data.forEach(album => {
+        let albumDiv = document.createElement("div")
         let albumTitle = document.createElement("h3")
         let albumUser = document.createElement("div")
         let albumPicturesNr = document.createElement("div")
         let albumPicture = document.createElement("img")
         let albumPictureLink = document.createElement("a")
 
-        albumUser.innerHTML = `Author: ${album.user.name} `
+
+        albumUser.innerHTML = `<a href="./user.html?id=${album.userId}"> Author: ${album.user.name}</a>`
+
         albumPicturesNr.innerHTML = `Picture number: ${album.photos.length}`
         albumTitle.innerHTML = `Album name: ${album.title}`
-        albumPicture.src = album.photos[0].url
-        albumPictureLink.href = album.photos[0].thumbnailUrl
+        albumPicture.src = album.photos[0].thumbnailUrl
+        albumPictureLink.href = `./album.html?id=${album.id}`
 
         albumPictureLink.append(albumPicture)
-        albumsDiv.append(albumTitle, albumUser, albumPicturesNr, albumPictureLink)
+        albumDiv.append(albumTitle, albumUser, albumPicturesNr, albumPictureLink)
+        albumsDiv.append(albumDiv)
     });
     return albumsDiv
 }
