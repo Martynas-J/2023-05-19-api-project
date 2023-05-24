@@ -1,9 +1,10 @@
+import { API_URL } from "./config.js"
+import { fetchData } from "./functions.js"
 
 nav()
 users()
 async function users() {
-    const resUsers = await fetch("https://jsonplaceholder.typicode.com/users?_embed=posts")
-    const dataUsers = await resUsers.json()
+    const dataUsers = await fetchData(API_URL + "/users?_embed=posts")
     let usersUl = CreateUsersList(dataUsers)
     let usersList = document.querySelector("#users-list")
     usersList.append(usersUl)

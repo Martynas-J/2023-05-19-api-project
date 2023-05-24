@@ -1,3 +1,6 @@
+import { API_URL } from "./config.js";
+import { fetchData } from "./functions.js";
+
 nav()
 album()
 lightGallery(document.getElementById('lightgallery'));
@@ -6,11 +9,9 @@ async function album() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     let albumData = document.querySelector("#album")
-    const res = await fetch(`https://jsonplaceholder.typicode.com/albums?id=${id}&_embed=photos&_expand=user`)
-    const data = await res.json()
+    const data = await fetchData(`${API_URL}/albums?id=${id}&_embed=photos&_expand=user`)
     let albumDiv = createAlbumData(data)
     albumData.prepend(albumDiv)
-    
 }
 
 function createAlbumData(album) {

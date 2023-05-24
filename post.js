@@ -1,13 +1,15 @@
 
 
+import { API_URL } from "./config.js";
+import { fetchData, firstLetterUpperCase } from "./functions.js";
 nav()
 post()
 async function post() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     let postData = document.querySelector("#post")
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/?_embed=comments&_expand=user`)
-    const data = await res.json()
+
+    const data = await fetchData(`${API_URL}/posts/${id}/?_embed=comments&_expand=user`)
     let postDiv = createPostData(data)
     postData.append(postDiv)
 }
@@ -20,22 +22,22 @@ function createPostData(data) {
     let commentsTitle = document.createElement("h3")
     let allUserPosts = document.createElement("span")
 
-    postTitle.textContent = data.title  
-    postAuthor.innerHTML = `<a href="./user.html?id=${data.userId}">Author: ${data.user.name}</a>` 
-    postContent.textContent = data.body
+    postTitle.textContent = data.title
+    postAuthor.innerHTML = `<a href="./user.html?id=${data.userId}">Author: ${data.user.name}</a>`
+    postContent.textContent = firstLetterUpperCase(data.body)
     commentsTitle.textContent = "Comments:"
     allUserPosts.innerHTML = `<a href="./posts.html?id=${data.userId}">Other posts by ${data.user.name}</a>`
 
     postDiv.append(postTitle, postAuthor, postContent, allUserPosts, commentsTitle)
     data.comments.forEach(element => {
-        
+
         let commentTitle = document.createElement("h4")
         let commentContent = document.createElement("p")
         let commentEmail = document.createElement("span")
-        
 
-        commentTitle.textContent = element.name
-        commentContent.textContent = element.body
+
+        commentTitle.textContent = firstLetterUpperCase(element.name)
+        commentContent.textContent = firstLetterUpperCase(element.body)
         commentEmail.innerHTML = `Email: ${element.email}`
         postDiv.append(commentTitle, commentContent, commentEmail)
     });

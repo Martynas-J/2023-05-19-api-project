@@ -1,8 +1,7 @@
 
 
-
-
-
+import { API_URL } from "./config.js";
+import {fetchData, firstLetterUpperCase} from "./functions.js"
 nav()
 user()
 
@@ -11,8 +10,8 @@ async function user() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     try {
-        const resUser = await fetch(`https://jsonplaceholder.typicode.com/users/${id}/?_embed=posts&_embed=albums`)
-        const dataUser = await resUser.json()
+        const dataUser = await fetchData(`${API_URL}/users/${id}/?_embed=posts&_embed=albums`)
+
         let userUl = createUsersData(dataUser)
         let postsDiv = createList(dataUser.posts, "Posts:", "./post.html")
         let albumsDiv = createList(dataUser.albums, "Albums:", "./album.html")
@@ -22,7 +21,6 @@ async function user() {
         errorMsg.textContent = "User not found"
         userData.append(errorMsg)
     }
-
 }
 function createUsersData(dataUser) {
     let userUl = document.createElement("ul")
@@ -51,7 +49,6 @@ function createUsersData(dataUser) {
     userUl.append(name, nick, email, address, phone, website, company)
     return userUl
 }
-
 function createList(data, text, link) {
     let div = document.createElement("div")
     let title = document.createElement("h2")
@@ -60,7 +57,7 @@ function createList(data, text, link) {
     if (data.length > 0) {
         data.forEach(element => {
             let title = document.createElement("h4")
-            title.innerHTML = `<a href=${link}?id=${element.id}>Title: ${element.title}</a>`
+            title.innerHTML = `<a href=${link}?id=${element.id}>Title: ${firstLetterUpperCase(element.title) }</a>`
             div.append(title)
         });
     } else {
@@ -68,9 +65,9 @@ function createList(data, text, link) {
         empty.textContent = "Empty"
         div.append(empty)
     }
-
     return div
 }
+
 
 
 // 6. Šiame puslapyje (user.html) turi būti atvaizduojama:

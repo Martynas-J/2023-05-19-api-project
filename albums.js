@@ -1,10 +1,12 @@
+import { API_URL } from "./config.js"
+import { fetchData } from "./functions.js"
 
 nav()
 albums()
 async function albums() {
     let albumsList = document.querySelector("#albums-list")
-    const res = await fetch("https://jsonplaceholder.typicode.com/albums?_embed=photos&_expand=user")
-    const data = await res.json()
+
+    const data = await fetchData(API_URL + "/albums?_embed=photos&_expand=user")
     let albumsDiv = CreateAlbumsList(data)
     albumsList.prepend(albumsDiv)
 }
@@ -18,10 +20,8 @@ function CreateAlbumsList(data) {
         let albumPicturesNr = document.createElement("div")
         let albumPicture = document.createElement("img")
         let albumPictureLink = document.createElement("a")
-
-
+        
         albumUser.innerHTML = `<a href="./user.html?id=${album.userId}"> Author: ${album.user.name}</a>`
-
         albumPicturesNr.innerHTML = `Picture number: ${album.photos.length}`
         albumTitle.innerHTML = `Album name: ${album.title}`
         albumPicture.src = album.photos[0].thumbnailUrl

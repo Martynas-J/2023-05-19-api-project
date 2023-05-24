@@ -1,6 +1,5 @@
-
-
-
+import { API_URL } from "./config.js";
+import { fetchData, firstLetterUpperCase } from "./functions.js";
 
 nav()
 search()
@@ -9,16 +8,13 @@ async function search() {
     const urlParams = new URLSearchParams(window.location.search);
     let searchTexts = urlParams.get('search');
 
-    const resUsers = await fetch(`https://jsonplaceholder.typicode.com/users`)
-    const dataUsers = await resUsers.json()
+    const dataUsers = await fetchData(`${API_URL}/users`)
     let searchUsers = createUserList(dataUsers, searchTexts, "users")
 
-    const resPosts = await fetch(`https://jsonplaceholder.typicode.com/posts`)
-    const dataPosts = await resPosts.json()
+    const dataPosts = await fetchData(`${API_URL}/posts`)
     let searchPosts = createUserList(dataPosts, searchTexts, "posts")
 
-    const resAlbums = await fetch(`https://jsonplaceholder.typicode.com/albums`)
-    const dataAlbums = await resAlbums.json()
+    const dataAlbums = await fetchData(`${API_URL}/albums`)
     let searchAlbums = createUserList(dataAlbums, searchTexts, "albums")
 
     let searchList = document.querySelector("#search")
@@ -43,11 +39,11 @@ function createUserList(dataSearch, searchTexts, searchByWho) {
             searchLi.innerHTML = `<a href="./user.html?id=${element.id}">${element.name}`
             text = "user name"
         } else if (searchByWho === "posts") {
-            searchBy = element.title
-            searchLi.innerHTML = `<b>Title:</b> <a href="./post.html?id=${element.id}">${element.title}</a>`
+            searchBy = firstLetterUpperCase(element.title)
+            searchLi.innerHTML = `<b>Title:</b> <a href="./post.html?id=${element.id}">${searchBy}</a>`
             text = "post title"
         } else if (searchByWho === "albums") {
-            searchBy = element.title
+            searchBy = firstLetterUpperCase(element.title)
             searchLi.innerHTML = `<b>Album:</b><a href="./album.html?id=${element.id}"> ${searchBy}</a>`
             text = "album title"
         }
@@ -64,8 +60,6 @@ function createUserList(dataSearch, searchTexts, searchByWho) {
         searchDiv.style.backgroundColor = "rgb(179, 179, 179)"
         searchDiv.style.padding = "20px"
     }
-
-
     return searchDiv
 }
 

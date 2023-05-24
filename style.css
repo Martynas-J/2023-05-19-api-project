@@ -139,13 +139,11 @@ body>h1{
 }
 #post a{
     color: black;
-    transition-property: color, padding;
-    transition-duration: 2s;
+    transition-property: color;
+    transition-duration: 0.5s;
 }
 #post a:hover{
-    font-weight: 800;
     color: rgb(38, 10, 167);
-    padding-left: 30px;
 }
 #albums-list>div{
     display: grid;

@@ -1,4 +1,5 @@
-
+import { API_URL } from "./config.js";
+import { firstLetterUpperCase } from "./functions.js";
 nav()
 posts()
 async function posts() {
@@ -6,29 +7,20 @@ async function posts() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     let postsList = document.querySelector("#posts-list")
-        // if (id) {
-        //     text = `userId=${id}`
-        // }else {
-        //     text = ""
-        // }
         text = id ? `userId=${id}` : ""
-        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?${text}&_embed=comments&_expand=user`)
+        const res = await fetch(`${API_URL}/posts?${text}&_embed=comments&_expand=user`)
         const data = await res.json()
         let postsDiv = createPostsList(data)
         postsList.append(postsDiv)
-    
-
-
 }
 
 function createPostsList(data) {
-
     let postsDiv = document.createElement("div")
     data.forEach(element => {
         let postTitle = document.createElement("h4")
         let postUser = document.createElement("span")
         let postComments = document.createElement("span")
-        postTitle.innerHTML = `<a href="./post.html?id=${element.id}">Title: ${element.title}</a>`
+        postTitle.innerHTML = `<a href="./post.html?id=${element.id}">Title: ${firstLetterUpperCase(element.title)}</a>`
         postUser.innerHTML = `<a href="./user.html?id=${element.userId}">Author: ${element.user.name}</a>`
         postComments.innerHTML = ` (${element.comments.length} Comments)`
         postsDiv.append(postTitle, postUser)
