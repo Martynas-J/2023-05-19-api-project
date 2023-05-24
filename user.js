@@ -21,7 +21,6 @@ async function user() {
         let errorMsg = document.createElement("span")
         errorMsg.textContent = "User not found"
         userData.append(errorMsg)
-
     }
 
 }
