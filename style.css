@@ -223,12 +223,12 @@ body>h1{
     padding: 10px;
     max-width: 300px;
     box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.219);
-    transition: background-color 2s, margin 1s;
+    transition: background-color 2s;
 }
 #user-data> *:hover{
     background-color: rgb(145, 145, 145);
-    margin-top: -20px;
-    margin-bottom: 20px;
+    /* margin-top: -20px;
+    margin-bottom: 20px; */
 }
 #user-data h2{
     text-align: center;
