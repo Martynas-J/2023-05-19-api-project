@@ -58,6 +58,14 @@ function createUserList(dataSearch, searchTexts, searchByWho) {
             searchDiv.append(searchTitle, searchUl)
         }
     });
+    if (searchDiv.textContent) {
+        searchDiv.style.maxWidth = "400px"
+        searchDiv.style.border = "2px solid black"
+        searchDiv.style.backgroundColor = "rgb(179, 179, 179)"
+        searchDiv.style.padding = "20px"
+    }
+
+
     return searchDiv
 }
 
