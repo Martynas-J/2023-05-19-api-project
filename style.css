@@ -266,8 +266,47 @@ body>h1{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 20px;
+    gap: 20px;
 }
-#home h1{
+#home>h1{
     grid-column: span 3;
+    text-align: center;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    padding: 10px;
+}
+
+.posts-wrap, .albums-wrap, .users-wrap{
+    border: 3px solid black;
+    box-shadow: 10px 10px 10px black, inset -1px -1px 40px 12px rgb(92, 92, 92);
+    padding: 10px;
+    transition-property: background, box-shadow;
+    transition-duration: 1s;
+}
+.posts-wrap:hover, .albums-wrap:hover, .users-wrap:hover{
+    background-color: rgb(192, 191, 191);
+    box-shadow: 10px 10px 10px rgb(102, 101, 101), inset -1px -1px 20px 12px rgb(255, 254, 254);
+}
+#home h2{
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: inset 7px -4px 14px 3px rgb(61, 61, 61);
+}
+.posts-wrap h1, .albums-wrap h1, .users-wrap h1{
+    text-align: center;
+}
+#home a{
+    color: black;
+}
+#home a:hover{
+    color: rgb(0, 108, 248);
+    font-style:oblique
+}
+#home .posts-content div, #home .albums-content div{
+    text-align:end;
+}
+#home .albums-content p a{
+    display: block;
     text-align: center;
 }
