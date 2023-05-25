@@ -1,13 +1,13 @@
 import { API_URL } from "./config.js";
-import { fetchData } from "./functions.js";
+import { fetchData, getUrlParams } from "./functions.js";
+import nav from "./nav.js"
 
-nav()
+document.body.prepend(nav())
 album()
 lightGallery(document.getElementById('lightgallery'));
 
 async function album() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    const id = getUrlParams('id')
     let albumData = document.querySelector("#album")
     const data = await fetchData(`${API_URL}/albums?id=${id}&_embed=photos&_expand=user`)
     let albumDiv = createAlbumData(data)

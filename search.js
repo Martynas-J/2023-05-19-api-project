@@ -1,9 +1,12 @@
-import { API_URL } from "./config.js";
-import { fetchData, firstLetterUpperCase, getUrmParams } from "./functions.js";
+import { API_URL, categoriesArr } from "./config.js";
+import { fetchData, firstLetterUpperCase, getUrlParams } from "./functions.js";
+import nav from "./nav.js"
 
-nav()
-search(getUrmParams('search'))
+document.body.prepend(nav())
+
+search(getUrlParams('search'))
 searchLocal()
+
 function searchLocal() {
     let nav = document.querySelector("nav")
     let searchForm = document.createElement("form")
@@ -18,7 +21,7 @@ function searchLocal() {
     searchSubmit.type = "submit"
     searchSubmit.value = "Search"
 
-    let categoriesArr = ["posts", "users", "comments", "albums", "photos"]
+
     categoriesArr.forEach(element => {
         let option = document.createElement("option")
         option.textContent = firstLetterUpperCase(element)
@@ -40,35 +43,27 @@ function searchLocal() {
 async function search(searchTexts, category) {
 
     function empty() {
-        let notFound = document.createElement("h1")
-        notFound.innerHTML = `${searchTexts} not found`
-        searchList.append(notFound)
+        if (searchList.textContent === "") {
+            let notFound = document.createElement("h1")
+            notFound.innerHTML = `${searchTexts} not found`
+            searchList.append(notFound)
+        }
     }
     let searchList = document.querySelector("#search")
     searchList.innerHTML = ""
     if (!category) {
-        const dataUsers = await fetchData(`${API_URL}/users?q=${searchTexts}`)
-        let searchUsers = createUserList(dataUsers, searchTexts, "users")
-
-        const dataPosts = await fetchData(`${API_URL}/posts?q=${searchTexts}`)
-        let searchPosts = createUserList(dataPosts, searchTexts, "posts")
-
-        const dataAlbums = await fetchData(`${API_URL}/albums?q=${searchTexts}`)
-        let searchAlbums = createUserList(dataAlbums, searchTexts, "albums")
-
-        if (!searchUsers.textContent && !searchPosts.textContent && !searchAlbums.textContent) {
+        categoriesArr.forEach(async item => {
+            const data = await fetchData(`${API_URL}/${item}?q=${searchTexts}`)
+            let searchData = createUserList(data, searchTexts, item)
+            searchList.append(searchData)
             empty()
-        }
-        searchList.append(searchUsers, searchPosts, searchAlbums)
+        })
     } else {
         const data = await fetchData(`${API_URL}/${category}?q=${searchTexts}`)
         let searchData = createUserList(data, searchTexts, category)
-        if (!searchData.textContent) {
-            empty()
-        }
         searchList.append(searchData)
+        empty()
     }
-
 }
 function createUserList(dataSearch, searchTexts, searchByWho) {
     let searchTitle = document.createElement("h1")

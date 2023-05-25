@@ -30,7 +30,7 @@ export function createHtmlElement(type, className,  href) {
     } 
     return element
 }
-export function getUrmParams(params) {
+export function getUrlParams(params) {
     const urlParams = new URLSearchParams(window.location.search);
     let id = urlParams.get(params);
     return id

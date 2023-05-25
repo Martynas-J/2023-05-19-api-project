@@ -1,7 +1,8 @@
 import { API_URL } from "./config.js"
 import { fetchData } from "./functions.js"
+import nav from "./nav.js"
 
-nav()
+document.body.prepend(nav())
 albums()
 async function albums() {
     let albumsList = document.querySelector("#albums-list")

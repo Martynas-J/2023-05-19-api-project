@@ -1,5 +1,4 @@
-function nav() {
-    let body = document.querySelector('body')
+export default  function nav() {
     let header = document.createElement("header")
     let nav = document.createElement("nav")
     let ul = document.createElement("ul")
@@ -16,7 +15,7 @@ function nav() {
     ul.style.listStyleType = "none"
     let NavArr = [
         {
-            link: "./users.html",
+            link: "./index.html",
             text: "Home"
         },
         {
@@ -45,13 +44,13 @@ function nav() {
         }
 
     });
-    body.prepend(header)
     header.append(nav)
     searchForm.append(searchInput, searchSubmit)
     nav.append(ul)
     if (location.pathname !== "/search.html") {
         nav.append(searchForm)
     }
+    return header
 }
 
 

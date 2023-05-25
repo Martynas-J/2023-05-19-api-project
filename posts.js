@@ -1,11 +1,12 @@
 import { API_URL } from "./config.js";
-import { createHtmlElementLink, firstLetterUpperCase } from "./functions.js";
-nav()
+import { createHtmlElementLink, firstLetterUpperCase, getUrlParams } from "./functions.js";
+import nav from "./nav.js"
+
+document.body.prepend(nav())
 posts()
 async function posts() {
     let text
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    const id = getUrlParams('id')
     let postsList = document.querySelector("#posts-list")
         text = id ? `userId=${id}` : ""
         const res = await fetch(`${API_URL}/posts?${text}&_embed=comments&_expand=user`)

@@ -1,12 +1,13 @@
 
 
 import { API_URL } from "./config.js";
-import { fetchData, firstLetterUpperCase } from "./functions.js";
-nav()
+import { fetchData, firstLetterUpperCase, getUrlParams } from "./functions.js";
+import nav from "./nav.js"
+
+document.body.prepend(nav())
 post()
 async function post() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    const id = getUrlParams('id')
     let postData = document.querySelector("#post")
 
     const data = await fetchData(`${API_URL}/posts/${id}/?_embed=comments&_expand=user`)
