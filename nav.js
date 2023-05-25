@@ -32,7 +32,7 @@ export default  function nav() {
     header.append(nav)
     searchForm.append(searchInput, searchSubmit)
     nav.append(ul)
-    if (location.pathname.endsWith(`/search.html`)) {
+    if (!location.pathname.endsWith(`/search.html`)) {
         nav.append(searchForm)
     }
     return header
