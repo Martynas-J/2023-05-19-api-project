@@ -1,5 +1,5 @@
 import { API_URL } from "./config.js";
-import { firstLetterUpperCase } from "./functions.js";
+import { createHtmlElementLink, firstLetterUpperCase } from "./functions.js";
 nav()
 posts()
 async function posts() {
@@ -17,11 +17,12 @@ async function posts() {
 function createPostsList(data) {
     let postsDiv = document.createElement("div")
     data.forEach(element => {
-        let postTitle = document.createElement("h4")
-        let postUser = document.createElement("span")
+
+        let postTitle = createHtmlElementLink("h4", `./post.html?id=${element.id}`, `Title: ${firstLetterUpperCase(element.title)}</a>`)
+
+        let postUser = createHtmlElementLink("span", `./user.html?id=${element.userId}`, `Author: ${element.user.name}</a>`)
         let postComments = document.createElement("span")
-        postTitle.innerHTML = `<a href="./post.html?id=${element.id}">Title: ${firstLetterUpperCase(element.title)}</a>`
-        postUser.innerHTML = `<a href="./user.html?id=${element.userId}">Author: ${element.user.name}</a>`
+        
         postComments.innerHTML = ` (${element.comments.length} Comments)`
         postsDiv.append(postTitle, postUser)
         postTitle.append(postComments)

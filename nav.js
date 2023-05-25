@@ -40,14 +40,18 @@ function nav() {
         aNav.style.textDecoration = "none"
         ul.append(liNav)
         liNav.append(aNav)
-        if (aNav.href === window.location.href) {
+        if (aNav.href === location.href) {
             aNav.style.borderColor = "green";
         }
+
     });
     body.prepend(header)
     header.append(nav)
     searchForm.append(searchInput, searchSubmit)
-    nav.append(ul, searchForm)
+    nav.append(ul)
+    if (location.pathname !== "/search.html") {
+        nav.append(searchForm)
+    }
 }
 
 

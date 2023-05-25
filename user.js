@@ -1,14 +1,13 @@
 
 
 import { API_URL } from "./config.js";
-import {fetchData, firstLetterUpperCase} from "./functions.js"
+import {fetchData, firstLetterUpperCase, getUrmParams} from "./functions.js"
 nav()
 user()
 
 async function user() {
     let userData = document.querySelector("#user-data")
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    const id = getUrmParams("id")
     try {
         const dataUser = await fetchData(`${API_URL}/users/${id}/?_embed=posts&_embed=albums`)
 

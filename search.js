@@ -1,29 +1,74 @@
 import { API_URL } from "./config.js";
-import { fetchData, firstLetterUpperCase } from "./functions.js";
+import { fetchData, firstLetterUpperCase, getUrmParams } from "./functions.js";
 
 nav()
-search()
+search(getUrmParams('search'))
+searchLocal()
+function searchLocal() {
+    let nav = document.querySelector("nav")
+    let searchForm = document.createElement("form")
+    let searchInput = document.createElement("input")
+    let searchCategory = document.createElement("select")
+    let searchSubmit = document.createElement("input")
 
-async function search() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let searchTexts = urlParams.get('search');
+    searchInput.type = "text"
+    searchInput.name = "search"
+    searchCategory.name = "category"
+    searchInput.placeholder = "Write text"
+    searchSubmit.type = "submit"
+    searchSubmit.value = "Search"
 
-    const dataUsers = await fetchData(`${API_URL}/users`)
-    let searchUsers = createUserList(dataUsers, searchTexts, "users")
+    let categoriesArr = ["posts", "users", "comments", "albums", "photos"]
+    categoriesArr.forEach(element => {
+        let option = document.createElement("option")
+        option.textContent = firstLetterUpperCase(element)
+        option.value = element
+        searchCategory.append(option)
+    });
+    searchForm.append(searchInput, searchCategory, searchSubmit)
+    nav.append(searchForm)
 
-    const dataPosts = await fetchData(`${API_URL}/posts`)
-    let searchPosts = createUserList(dataPosts, searchTexts, "posts")
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault()
+        let form = event.target
+        let searchTexts = form.search.value
+        let category = form.category.value
+        search(searchTexts, category)
+    })
+}
 
-    const dataAlbums = await fetchData(`${API_URL}/albums`)
-    let searchAlbums = createUserList(dataAlbums, searchTexts, "albums")
+async function search(searchTexts, category) {
 
-    let searchList = document.querySelector("#search")
-    if (!searchUsers.textContent && !searchPosts.textContent && !searchAlbums.textContent) {
+    function empty() {
         let notFound = document.createElement("h1")
         notFound.innerHTML = `${searchTexts} not found`
         searchList.append(notFound)
     }
-    searchList.append(searchUsers, searchPosts, searchAlbums)
+    let searchList = document.querySelector("#search")
+    searchList.innerHTML = ""
+    if (!category) {
+        const dataUsers = await fetchData(`${API_URL}/users?q=${searchTexts}`)
+        let searchUsers = createUserList(dataUsers, searchTexts, "users")
+
+        const dataPosts = await fetchData(`${API_URL}/posts?q=${searchTexts}`)
+        let searchPosts = createUserList(dataPosts, searchTexts, "posts")
+
+        const dataAlbums = await fetchData(`${API_URL}/albums?q=${searchTexts}`)
+        let searchAlbums = createUserList(dataAlbums, searchTexts, "albums")
+
+        if (!searchUsers.textContent && !searchPosts.textContent && !searchAlbums.textContent) {
+            empty()
+        }
+        searchList.append(searchUsers, searchPosts, searchAlbums)
+    } else {
+        const data = await fetchData(`${API_URL}/${category}?q=${searchTexts}`)
+        let searchData = createUserList(data, searchTexts, category)
+        if (!searchData.textContent) {
+            empty()
+        }
+        searchList.append(searchData)
+    }
+
 }
 function createUserList(dataSearch, searchTexts, searchByWho) {
     let searchTitle = document.createElement("h1")
@@ -46,13 +91,19 @@ function createUserList(dataSearch, searchTexts, searchByWho) {
             searchBy = firstLetterUpperCase(element.title)
             searchLi.innerHTML = `<b>Album:</b><a href="./album.html?id=${element.id}"> ${searchBy}</a>`
             text = "album title"
+        } else if (searchByWho === "photos") {
+            searchBy = firstLetterUpperCase(element.title)
+            searchLi.innerHTML = `<b>Photo:</b><a href="./photo.html?id=${element.id}"> ${searchBy}</a>`
+            text = "photo title"
         }
-        let search = searchBy.toLowerCase()
-        if (search.includes(searchTexts)) {
-            searchTitle.innerHTML = `Search by ${text} (${searchTexts})`
-            searchUl.append(searchLi)
-            searchDiv.append(searchTitle, searchUl)
+        else if (searchByWho === "comments") {
+            searchBy = firstLetterUpperCase(element.name)
+            searchLi.innerHTML = `<b>Comment:</b><a href="./comment.html?id=${element.id}"> ${searchBy}</a>`
+            text = "comment title"
         }
+        searchTitle.innerHTML = `Search by ${text} (${searchTexts})`
+        searchUl.append(searchLi)
+        searchDiv.append(searchTitle, searchUl)
     });
     if (searchDiv.textContent) {
         searchDiv.style.maxWidth = "400px"
@@ -63,43 +114,6 @@ function createUserList(dataSearch, searchTexts, searchByWho) {
     return searchDiv
 }
 
-
-
-
-
-
-// function createUserList(dataSearch, searchTexts) {
-//     let userTitle = document.createElement("h1")
-//     userTitle.innerHTML = `(${searchTexts}) Search By Users`
-//     let userDiv = document.createElement("div")
-//     userDiv.append(userTitle)
-//     dataSearch.forEach(element => {
-//         let searchUl = document.createElement("ul")
-//         let keysArr = Object.keys(element);
-//         keysArr.forEach(key => {
-//             let userLi = document.createElement("li")
-//             let value = element[key];
-//             if (typeof value === "object") {
-//                 let searchUlLvl2 = document.createElement("ul")
-//                 let keysArrLvl2 = Object.keys(value);
-//                 console.log(keysArrLvl2)
-//                 console.log(userLi)
-//                 keysArrLvl2.forEach(keyLvl2 => {
-//                     let valueLvl2 = value[keyLvl2];
-//                     if (typeof valueLvl2 === "object") {
-//                     } else {
-//                         let userLiLvl2 = document.createElement("li")
-//                         userLiLvl2.innerHTML = `<b>${keyLvl2}</b> : ${valueLvl2}`
-//                         searchUlLvl2.append(userLiLvl2)
-//                     }
-//                 })
-//                 userLi.append(searchUlLvl2)
-//             } else {
-//                 userLi.innerHTML = `<b>${key}</b> : ${value}`
-//             }
-//             searchUl.append(userLi)
-//         })
-//         userDiv.append(searchUl)
-//     });
-//     return userDiv
-// }
+// Papildoma:
+// 9.4. Search puslapyje turi būti paieškos forma, kuri veikia neperkraunant puslapio.
+// 9.5. Search puslapyje sukurtoje paieškos formoje pridėti galimybė ieškoti pagal pasirinktą kategoriją: posts, users, comments, albums, photos.

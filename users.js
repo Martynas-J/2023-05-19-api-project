@@ -1,5 +1,5 @@
 import { API_URL } from "./config.js"
-import { fetchData } from "./functions.js"
+import { createHtmlElement, fetchData } from "./functions.js"
 
 nav()
 users()
@@ -10,7 +10,7 @@ async function users() {
     usersList.append(usersUl)
 }
 function CreateUsersList(dataUsers) {  
-    let usersUl = document.createElement("ul") 
+    let usersUl = createHtmlElement("ul", "class-li") 
     dataUsers.forEach(element => {
         let userLi = document.createElement("li")
         userLi.innerHTML = `<a href="./user.html?id=${element.id}">${element.name} (${element.posts.length} posts)</a>`
