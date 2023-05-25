@@ -41,7 +41,6 @@ function searchLocal() {
 }
 
 async function search(searchTexts, category) {
-
     function empty() {
         if (searchList.textContent === "") {
             let notFound = document.createElement("h1")
@@ -52,19 +51,19 @@ async function search(searchTexts, category) {
     let searchList = document.querySelector("#search")
     searchList.innerHTML = ""
     if (!category) {
-        categoriesArr.forEach(async item => {
-            const data = await fetchData(`${API_URL}/${item}?q=${searchTexts}`)
-            let searchData = createUserList(data, searchTexts, item)
-            searchList.append(searchData)
-            empty()
-        })
+        await Promise.all(categoriesArr.map(async item => {
+            const data = await fetchData(`${API_URL}/${item}?q=${searchTexts}`);
+            let searchData = createUserList(data, searchTexts, item);
+            searchList.append(searchData);
+        })).then(() => empty())
     } else {
         const data = await fetchData(`${API_URL}/${category}?q=${searchTexts}`)
         let searchData = createUserList(data, searchTexts, category)
         searchList.append(searchData)
-        empty()
+        await Promise.all([data]).then(() => empty())
     }
 }
+
 function createUserList(dataSearch, searchTexts, searchByWho) {
     let searchTitle = document.createElement("h1")
     let searchDiv = document.createElement("div")
