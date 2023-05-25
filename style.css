@@ -262,3 +262,12 @@ body>h1{
     color:grey;
     font-style: italic;
 }
+#home {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+#home h1{
+    grid-column: span 3;
+    text-align: center;
+}
