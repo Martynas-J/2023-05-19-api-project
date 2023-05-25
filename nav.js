@@ -47,7 +47,7 @@ export default  function nav() {
     header.append(nav)
     searchForm.append(searchInput, searchSubmit)
     nav.append(ul)
-    if (location.pathname !== "/search.html") {
+    if (location.pathname !== "./search.html") {
         nav.append(searchForm)
     }
     return header
