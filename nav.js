@@ -1,3 +1,5 @@
+import { MAIN_MENU_NAV } from "./config.js"
+
 export default  function nav() {
     let header = document.createElement("header")
     let nav = document.createElement("nav")
@@ -13,25 +15,8 @@ export default  function nav() {
     searchSubmit.type = "submit"
     searchSubmit.value = "Search"
     ul.style.listStyleType = "none"
-    let NavArr = [
-        {
-            link: "./index.html",
-            text: "Home"
-        },
-        {
-            link: "./users.html",
-            text: "Users"
-        },
-        {
-            link: "./albums.html",
-            text: "Albums"
-        },
-        {
-            link: "./posts.html",
-            text: "Posts"
-        },
-    ]
-    NavArr.forEach(element => {
+    
+    MAIN_MENU_NAV.forEach(element => {
         let aNav = document.createElement("a")
         let liNav = document.createElement("li")
         aNav.href = element.link
@@ -47,17 +32,8 @@ export default  function nav() {
     header.append(nav)
     searchForm.append(searchInput, searchSubmit)
     nav.append(ul)
-    if (location.pathname !== `/2023-05-19-api-project/search.html`) {
+    if (location.pathname.endsWith(`/search.html`)) {
         nav.append(searchForm)
     }
     return header
 }
-
-
-// export {nav};
-
-// 9. Sukurti paieškos funkcionalumą navigacijos elemente:
-// 9.1. Navigacijos elemente sukurti formą, kuri turi text tipo input elementą (nepamiršti pridėti name atributą).
-// 9.2. Formos submit metu, naudojant action atributą, nukreipti į naują puslapį (search.html).
-// 9.3. Šiame puslapyje atvaizduoti paieškos rezultatą.
-// 9.3.1. Jeigu nėra tinkamų rezultatų, tai parašyti jog rezultatų pagal užklausą nerasta.
