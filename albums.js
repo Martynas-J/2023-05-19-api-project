@@ -1,13 +1,18 @@
 import { API_URL } from "./config.js"
-import { fetchData } from "./functions.js"
-import nav from "./nav.js"
+import { fetchData, getPagesNum, getUrlParams } from "./functions.js"
+import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 albums()
 async function albums() {
     let albumsList = document.querySelector("#albums-list")
+    let contentTo = 10
 
-    const data = await fetchData(API_URL + "/albums?_embed=photos&_expand=user")
+    let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
+
+    pages(10)
+
+    const data = await fetchData(API_URL + `/albums?_start=${contentFrom}&_limit=${contentTo}&_embed=photos&_expand=user`)
     let albumsDiv = CreateAlbumsList(data)
     albumsList.prepend(albumsDiv)
 }
@@ -21,7 +26,7 @@ function CreateAlbumsList(data) {
         let albumPicturesNr = document.createElement("div")
         let albumPicture = document.createElement("img")
         let albumPictureLink = document.createElement("a")
-        
+
         albumUser.innerHTML = `<a href="./user.html?id=${album.userId}"> Author: ${album.user.name}</a>`
         albumPicturesNr.innerHTML = `Picture number: ${album.photos.length}`
         albumTitle.innerHTML = `Album name: ${album.title}`

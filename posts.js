@@ -1,14 +1,14 @@
 import { API_URL } from "./config.js";
-import { createHtmlElement, createHtmlElementLink, firstLetterUpperCase, getUrlParams } from "./functions.js";
+import { createHtmlElement, createHtmlElementLink, firstLetterUpperCase, getPagesNum, getUrlParams } from "./functions.js";
 import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 posts()
 
 async function posts() {
-    let pageNou = getUrlParams("page")
-    let contentFrom = Math.max((pageNou - 1) * 25, 0)
     let contentTo = 25
+
+    let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
 
     let text = ""
     const id = getUrlParams('id')
@@ -20,7 +20,6 @@ async function posts() {
         pages(4)
     }
     const res = await fetch(`${API_URL}/posts${text}?_start=${contentFrom}&_limit=${contentTo}&_embed=comments&_expand=user`)
-
 
     const data = await res.json()
     let postsDiv = createPostsList(data)

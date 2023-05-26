@@ -35,3 +35,7 @@ export function getUrlParams(params) {
     let id = urlParams.get(params);
     return id
 }
+export function getPagesNum(pageNou, step){
+    let contentFrom = Math.max((pageNou - 1) * step, 0)
+    return contentFrom
+}
