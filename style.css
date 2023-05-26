@@ -317,15 +317,15 @@ body>h1{
     border-radius: 20px;
     border-width: 1px;
 }
-.pages-wrap a {
+a {
      padding-left: 10px;
      padding-right: 10px;
      color: black;
      text-decoration: none;
 }
-.pages-wrap a:hover{
+.page-link:hover{
+    font-weight: 800;
     color: rgb(0, 170, 28);
-    font-weight: 900;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
     box-shadow: inset -1px 0px 18px 0px black;
@@ -333,4 +333,14 @@ body>h1{
 .page-first, .page-last, .page-back, .page-next{
     font-weight: 500;
 }
-
+a.on-this-page{
+    font-weight: 500;
+    color: gray;
+    
+}
+a.on-this-page:hover{
+    background-color: unset;
+    box-shadow: unset;
+    color: gray;
+    font-weight: 500;
+}

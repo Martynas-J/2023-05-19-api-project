@@ -12,7 +12,8 @@ async function albums() {
     let contentTo = 10
 
     let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
-    pages(totalCount/contentTo)
+    let pagesNav = pages(totalCount/contentTo)
+    document.body.append(pagesNav)
 
     const data = await fetchData(API_URL + `/albums?_start=${contentFrom}&_limit=${contentTo}&_embed=photos&_expand=user`)
 

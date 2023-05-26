@@ -45,16 +45,21 @@ export function pages(pagesNr) {
     let lastPage = createHtmlElement("span", "page-last")
     let nextPage = createHtmlElement("span", "page-next")
     let backPage = createHtmlElement("span", "page-back")
-    let firstPageLink = createHtmlElement("a", "first-page-link", `${location.pathname}?page=1`)
-    let lastPageLink = createHtmlElement("a", "last-page-link", `${location.pathname}?page=${pagesNr}`)
-    let nextPageLink = createHtmlElement("a", "next-page-link", `${location.pathname}?page=${parseInt(pageNow) + 1}`)
-    let backPageLink = createHtmlElement("a", "back-page-link", `${location.pathname}?page=${parseInt(pageNow) - 1}`)
-
+    let firstPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=1`)
+    let lastPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${pagesNr}`)
+    let nextPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) + 1}`)
+    let backPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) - 1}`)
+    let howMuchPages = createHtmlElement("input", "pages-quantity")
 
     firstPage.textContent = "First"
     lastPage.textContent = "Last"
     nextPage.textContent = ">>"
     backPage.textContent = "<<"
+    howMuchPages.type = "number"
+    howMuchPages.step = "10"
+    howMuchPages.value = "10"
+    howMuchPages.min = "10"
+    howMuchPages.max = "100"
 
     firstPageLink.append(firstPage)
     lastPageLink.append(lastPage)
@@ -63,7 +68,6 @@ export function pages(pagesNr) {
 
     pagesDiv.prepend(firstPageLink, backPageLink)
 
-    document.body.append(pagesDiv)
     for (let i = 1; i <= pagesNr; i++) {
         let pageSpan = createHtmlElement("span", "page")
         let pageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${i}`)
@@ -71,11 +75,7 @@ export function pages(pagesNr) {
         if (pageLink.href === location.href || pageNow === null && i === 1) {
             pageSpan.textContent = "."
             pageLink.removeAttribute("href")
-            pageLink.style.fontWeight = "500"
-            pageLink.style.color = "black"
-            pageLink.style.backgroundColor = "unset"
-            pageLink.style.boxShadow = "unset"
-
+            pageLink.classList.add("on-this-page")
         } else {
             pageSpan.textContent = i
         }
@@ -83,27 +83,17 @@ export function pages(pagesNr) {
         pagesDiv.append(pageLink)
     }
     if (pageNow === null || pageNow === '1') {
-        firstPage.style.color = "grey"
+        firstPageLink.classList.add("on-this-page")
+        backPageLink.classList.add("on-this-page")
         firstPageLink.removeAttribute("href")
-        firstPageLink.style.backgroundColor = "unset"
-        firstPageLink.style.boxShadow = "unset"
-
-        backPage.style.color = "grey"
         backPageLink.removeAttribute("href")
-        backPageLink.style.backgroundColor = "unset"
-        backPageLink.style.boxShadow = "unset"
 
     }else if (parseInt(pageNow) === pagesNr) {
-        lastPage.style.color = "grey"
+        lastPageLink.classList.add("on-this-page")
+        nextPageLink.classList.add("on-this-page")
         lastPageLink.removeAttribute("href")
-        lastPageLink.style.backgroundColor = "unset"
-        lastPageLink.style.boxShadow = "unset"
-
-        nextPage.style.color = "grey"
         nextPageLink.removeAttribute("href")
-        nextPageLink.style.backgroundColor = "unset"
-        nextPageLink.style.boxShadow = "unset"
     }
-
-    pagesDiv.append(nextPageLink, lastPageLink)
+    pagesDiv.append(nextPageLink, lastPageLink, howMuchPages)
+    return pagesDiv
 }

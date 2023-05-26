@@ -8,7 +8,7 @@ posts()
 async function posts() {
     const totalCount = await fetchTotalCount(API_URL + `/posts?_start=0&_end=0`)
 
-    let contentTo = 25
+    let contentTo = 10
     let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
 
     let text = ""
@@ -18,7 +18,8 @@ async function posts() {
         text = `?userId=${id}&`
 
     } else {
-        pages(totalCount/contentTo)
+        let pagesNav = pages(totalCount / contentTo)
+        document.body.append(pagesNav)
     }
     const res = await fetch(`${API_URL}/posts${text}?_start=${contentFrom}&_limit=${contentTo}&_embed=comments&_expand=user`)
 

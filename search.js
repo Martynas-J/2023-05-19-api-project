@@ -87,12 +87,12 @@ function createUserList(dataSearch, searchTexts, searchByWho) {
             text = "album title"
         } else if (searchByWho === "photos") {
             searchBy = firstLetterUpperCase(element.title)
-            searchLi.innerHTML = `<b>Photo:</b><a href="./photo.html?id=${element.id}"> ${searchBy}</a>`
+            searchLi.innerHTML = `<b>Photo:</b><a href="${element.url}"> ${searchBy}</a>`
             text = "photo title"
         }
         else if (searchByWho === "comments") {
             searchBy = firstLetterUpperCase(element.name)
-            searchLi.innerHTML = `<b>Comment:</b><a href="./comment.html?id=${element.id}"> ${searchBy}</a>`
+            searchLi.innerHTML = `<b>Comment:</b><a href="./post.html?id=${element.postId}"> ${searchBy}</a>`
             text = "comment title"
         }
         searchTitle.innerHTML = `Search by ${text} (${searchTexts})`
