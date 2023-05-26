@@ -47,6 +47,9 @@ export function pages(pagesNr) {
     let backPage = createHtmlElement("span", "page-back")
     let firstPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=1`)
     let lastPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${pagesNr}`)
+    if (!pageNow) {
+        pageNow = 1;
+    }
     let nextPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) + 1}`)
     let backPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) - 1}`)
     let howMuchPages = createHtmlElement("input", "pages-quantity")
