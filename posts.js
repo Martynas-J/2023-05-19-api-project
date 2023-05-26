@@ -7,9 +7,7 @@ posts()
 
 async function posts() {
     let pageNou = getUrlParams("page")
-    console.log(parseInt(pageNou))
     let contentFrom = Math.max((pageNou - 1) * 25, 0)
-    console.log(contentFrom)
     let contentTo = 25
 
     let text = ""

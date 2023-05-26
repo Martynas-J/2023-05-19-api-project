@@ -45,12 +45,14 @@ export function pages(pagesNr) {
     for (let i = 1; i <= pagesNr; i++) {
         let pageSpan = createHtmlElement("span", "page")
         let pageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${i}`)
-        pageLink.style.fontSize = "30px"
-        pageSpan.style.padding = "20px"
 
         if (pageLink.href === location.href || pageNeu === null && i === 1) {
             pageSpan.textContent = "|" 
             pageLink.removeAttribute("href")
+            pageLink.style.fontWeight = "500"
+            pageLink.style.color = "black"
+            pageLink.style.backgroundColor = "unset"
+            pageLink.style.boxShadow  = "unset"
         } else {
             pageSpan.textContent = i
         }

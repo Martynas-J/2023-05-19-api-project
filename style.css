@@ -310,3 +310,23 @@ body>h1{
     display: block;
     text-align: center;
 }
+.pages-wrap{
+   padding: 20px;
+    font-size: 40px;
+    border-radius: 20px;
+    border-width: 1px;
+}
+.pages-wrap a {
+     padding-left: 10px;
+     padding-right: 10px;
+     color: black;
+     text-decoration: none;
+}
+.pages-wrap a:hover{
+    color: rgb(0, 170, 28);
+    font-weight: 900;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: inset -1px 0px 18px 0px black;
+}
+
