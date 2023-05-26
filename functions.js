@@ -1,10 +1,15 @@
 
+export async function fetchTotalCount(url) {
+    const res = await fetch(url)
+    const totalCount = res.headers.get('X-Total-Count');
+    console.log(totalCount)
+    return totalCount
+}
 export async function fetchData(url) {
     const res = await fetch(url)
     const data = await res.json()
     return data
 }
-
 export function firstLetterUpperCase(str) {
     let firstLetter = str.at(0).toUpperCase()
     let restOfStr = str.slice(1)

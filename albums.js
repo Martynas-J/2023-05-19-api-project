@@ -1,18 +1,21 @@
 import { API_URL } from "./config.js"
-import { fetchData, getPagesNum, getUrlParams } from "./functions.js"
+import { fetchData, fetchTotalCount, getPagesNum, getUrlParams } from "./functions.js"
 import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 albums()
 async function albums() {
+
+    const totalCount = await fetchTotalCount(API_URL + `/albums?_start=0&_end=0`)
+
     let albumsList = document.querySelector("#albums-list")
     let contentTo = 10
 
     let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
-
-    pages(10)
+    pages(totalCount/contentTo)
 
     const data = await fetchData(API_URL + `/albums?_start=${contentFrom}&_limit=${contentTo}&_embed=photos&_expand=user`)
+
     let albumsDiv = CreateAlbumsList(data)
     albumsList.prepend(albumsDiv)
 }

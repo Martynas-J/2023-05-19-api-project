@@ -1,13 +1,14 @@
 import { API_URL } from "./config.js";
-import { createHtmlElement, createHtmlElementLink, firstLetterUpperCase, getPagesNum, getUrlParams } from "./functions.js";
+import { createHtmlElement, createHtmlElementLink, fetchTotalCount, firstLetterUpperCase, getPagesNum, getUrlParams } from "./functions.js";
 import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 posts()
 
 async function posts() {
-    let contentTo = 25
+    const totalCount = await fetchTotalCount(API_URL + `/posts?_start=0&_end=0`)
 
+    let contentTo = 25
     let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
 
     let text = ""
@@ -17,7 +18,7 @@ async function posts() {
         text = `?userId=${id}&`
 
     } else {
-        pages(4)
+        pages(totalCount/contentTo)
     }
     const res = await fetch(`${API_URL}/posts${text}?_start=${contentFrom}&_limit=${contentTo}&_embed=comments&_expand=user`)
 
