@@ -43,3 +43,6 @@ export function getPagesNum(pageNou, step){
     let contentFrom = Math.max((pageNou - 1) * step, 0)
     return contentFrom
 }
+// export function onThisPage(){
+
+// }
