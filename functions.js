@@ -2,7 +2,6 @@
 export async function fetchTotalCount(url) {
     const res = await fetch(url)
     const totalCount = res.headers.get('X-Total-Count');
-    console.log(totalCount)
     return totalCount
 }
 export async function fetchData(url) {

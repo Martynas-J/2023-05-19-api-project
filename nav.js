@@ -39,24 +39,50 @@ export default function nav() {
     return header
 }
 export function pages(pagesNr) {
-    let pageNeu = getUrlParams('page')
+    let pageNow = getUrlParams('page')
     let pagesDiv = createHtmlElement("div", "pages-wrap")
+    let firstPage = createHtmlElement("span", "page-first")
+    let lastPage = createHtmlElement("span", "page-last")
+    let firstPageLink = createHtmlElement("a", "first-page-link", `${location.pathname}?page=1`)
+    let lastPageLink = createHtmlElement("a", "last-page-link", `${location.pathname}?page=${pagesNr}`)
+
+    firstPage.textContent = "First"
+    lastPage.textContent = "Last"
+
+    firstPageLink.append(firstPage)
+    lastPageLink.append(lastPage)
+    pagesDiv.prepend(firstPageLink)
+
     document.body.append(pagesDiv)
     for (let i = 1; i <= pagesNr; i++) {
         let pageSpan = createHtmlElement("span", "page")
         let pageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${i}`)
 
-        if (pageLink.href === location.href || pageNeu === null && i === 1) {
-            pageSpan.textContent = "|" 
+        if (pageLink.href === location.href || pageNow === null && i === 1) {
+            pageSpan.textContent = "."
             pageLink.removeAttribute("href")
             pageLink.style.fontWeight = "500"
             pageLink.style.color = "black"
             pageLink.style.backgroundColor = "unset"
-            pageLink.style.boxShadow  = "unset"
+            pageLink.style.boxShadow = "unset"
+
         } else {
             pageSpan.textContent = i
         }
         pageLink.append(pageSpan)
         pagesDiv.append(pageLink)
     }
+    if (pageNow === null || pageNow === '1') {
+        firstPage.style.color = "grey"
+        firstPageLink.removeAttribute("href")
+        firstPageLink.style.backgroundColor = "unset"
+        firstPageLink.style.boxShadow = "unset"
+    }else if (parseInt(pageNow) === pagesNr) {
+        lastPage.style.color = "grey"
+        lastPageLink.removeAttribute("href")
+        lastPageLink.style.backgroundColor = "unset"
+        lastPageLink.style.boxShadow = "unset"
+    }
+
+    pagesDiv.append(lastPageLink)
 }

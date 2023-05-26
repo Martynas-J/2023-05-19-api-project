@@ -43,6 +43,11 @@ function createPostsList(data) {
     });
     return postsDiv
 }
+// 15.3.1. Sukurti nuorodas pirmam ir paskutiniam puslapiui.
+// 15.3.2. Jeigu šiuo metu esama pirmame puslapyje, tai jo nuorodos paspausti negalima.
+// 15.3.3. Jeigu šiuo metu esama paskutiniame puslapyje, tai jo nuorodos paspausti negalima.
+
+
 
 // PAGINATION:
 // 15.1. Puslapiuose, kuriuose atvaizuojami post'ai, atvaizduoti pirmus 25 post'us. Tai bus pirmas post'ų puslapis.
