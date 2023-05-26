@@ -26,7 +26,7 @@ export function createHtmlElement(type, className,  href) {
         element.classList.add(className)
     }
     if (type === "a") {
-        element.scr = href
+        element.href = href
     } 
     return element
 }

@@ -1,6 +1,6 @@
 import { API_URL } from "./config.js"
 import { createHtmlElement, fetchData, firstLetterUpperCase } from "./functions.js"
-import nav from "./nav.js"
+import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 
@@ -16,7 +16,6 @@ async function home() {
 
     const usersData = await fetchData(`${API_URL}/users?_embed=posts&_embed=albums`)
     let users = createHomeData(usersData.slice(-5), "users")
-
 
     home.append(posts, albums, users)
 }
@@ -67,7 +66,4 @@ function createHomeData(data, type) {
 
     return div
 }
-// 10. Sukurti pagrindinį puslapį (index.html). Jame laisva forma turi būti atvaizduoti:
-//   1.1. Įrašai (post).
-//   1.2. Albumai.
-//   1.3. Vartotojai.
+
