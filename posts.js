@@ -4,7 +4,7 @@ import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 posts()
-pages(4)
+
 async function posts() {
     let pageNou = getUrlParams("page")
     console.log(parseInt(pageNou))
@@ -12,11 +12,18 @@ async function posts() {
     console.log(contentFrom)
     let contentTo = 25
 
-    let text
+    let text = ""
     const id = getUrlParams('id')
     let postsList = document.querySelector("#posts-list")
-    text = id ? `userId=${id}` : ""
-    const res = await fetch(`${API_URL}/posts?_start=${contentFrom}&_limit=${contentTo}?${text}&_embed=comments&_expand=user`)
+    if (id) {
+        text = `?userId=${id}&`
+
+    } else {
+        pages(4)
+    }
+    const res = await fetch(`${API_URL}/posts${text}?_start=${contentFrom}&_limit=${contentTo}&_embed=comments&_expand=user`)
+
+
     const data = await res.json()
     let postsDiv = createPostsList(data)
     postsList.append(postsDiv)
