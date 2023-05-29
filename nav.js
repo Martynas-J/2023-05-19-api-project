@@ -38,7 +38,7 @@ export default function nav() {
     }
     return header
 }
-export function pages(pagesNr, units) {
+export function pages(pagesNr, units, totalCount) {
     let pageNow = getUrlParams('page')
     let pagesDiv = createHtmlElement("div", "pages-wrap")
     let firstPage = createHtmlElement("span", "page-first")
@@ -63,7 +63,7 @@ export function pages(pagesNr, units) {
     backPage.textContent = "<<"
     pagesOption.textContent = "Units view"
     howMuchPages.append(pagesOption)
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= totalCount/10; i++) {
         let pagesOption = createHtmlElement("option", "pages-option")
         pagesOption.textContent = i * 5 
         pagesOption.value = i * 5 
