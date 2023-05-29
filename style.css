@@ -92,8 +92,6 @@ color: blue;
 }
 #posts-list span a:hover{
     color: rgb(43, 123, 228);
-    font-weight: 800;
-    font-size: 18px;
 }
 #users-list{
     padding-left: 30px;
