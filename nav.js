@@ -63,7 +63,7 @@ export function pages(pagesNr, units, totalCount) {
     backPage.textContent = "<<"
     pagesOption.textContent = "Units view"
     howMuchPages.append(pagesOption)
-    for (let i = 1; i <= totalCount/10; i++) {
+    for (let i = 1; i <= parseInt(totalCount/10); i++) {
         let pagesOption = createHtmlElement("option", "pages-option")
         pagesOption.textContent = i * 5 
         pagesOption.value = i * 5 
