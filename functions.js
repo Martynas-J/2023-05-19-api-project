@@ -58,7 +58,7 @@ export async function pagesLine(totalCountLink, linkName, linkEndText, defaultLi
         if (parseInt(totalPages.toFixed(0)) !== totalPages) {
             totalPages++
         }
-        let pagesNav = pages(parseInt(totalPages), getUrlParams("units"))
+        let pagesNav = pages(parseInt(totalPages), contentTo)
 
         document.body.append(pagesNav)
         data = await fetchData(API_URL + `/${linkName}?_start=${contentFrom}&_limit=${contentTo}${linkEndText}`)
