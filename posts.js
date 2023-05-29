@@ -1,15 +1,11 @@
 import { API_URL } from "./config.js";
-import { createHtmlElement, createHtmlElementLink, fetchTotalCount, firstLetterUpperCase, getPagesNum, getUrlParams } from "./functions.js";
+import { createHtmlElement, createHtmlElementLink, fetchTotalCount, firstLetterUpperCase, getPagesNum, getUrlParams, pagesLine } from "./functions.js";
 import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 posts()
 
-async function posts() {
-    const totalCount = await fetchTotalCount(API_URL + `/posts?_start=0&_end=0`)
-
-    let contentTo = 10
-    let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
+async function posts() { 
 
     let text = ""
     const id = getUrlParams('id')
@@ -18,12 +14,15 @@ async function posts() {
         text = `?userId=${id}&`
 
     } else {
-        let pagesNav = pages(totalCount / contentTo)
-        document.body.append(pagesNav)
+        text = "?"
     }
-    const res = await fetch(`${API_URL}/posts${text}?_start=${contentFrom}&_limit=${contentTo}&_embed=comments&_expand=user`)
 
-    const data = await res.json()
+    let totalCountLink = `/posts${text}_start=0&_end=0`
+    let linkName = `posts`
+    let linkEndText = "&_embed=comments&_expand=user"
+    let defaultLink = API_URL + `/posts${text}_embed=comments&_expand=user`
+    let data = await pagesLine(totalCountLink, linkName, linkEndText, defaultLink)
+
     let postsDiv = createPostsList(data)
     postsList.append(postsDiv)
 }

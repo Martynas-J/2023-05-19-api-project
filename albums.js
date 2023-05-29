@@ -1,21 +1,17 @@
 import { API_URL } from "./config.js"
-import { fetchData, fetchTotalCount, getPagesNum, getUrlParams } from "./functions.js"
+import { fetchData, fetchTotalCount, getPagesNum, getUrlParams, pagesLine } from "./functions.js"
 import nav, { pages } from "./nav.js"
 
 document.body.prepend(nav())
 albums()
 async function albums() {
-
-    const totalCount = await fetchTotalCount(API_URL + `/albums?_start=0&_end=0`)
-
     let albumsList = document.querySelector("#albums-list")
-    let contentTo = 10
 
-    let contentFrom = getPagesNum(getUrlParams("page"), contentTo)
-    let pagesNav = pages(totalCount/contentTo)
-    document.body.append(pagesNav)
-
-    const data = await fetchData(API_URL + `/albums?_start=${contentFrom}&_limit=${contentTo}&_embed=photos&_expand=user`)
+    let totalCountLink = `/albums?_start=0&_end=0`
+    let linkName = "albums"
+    let linkEndText = "&_embed=photos&_expand=user"
+    let defaultLink = API_URL + `/albums?_embed=photos&_expand=user`
+    let data = await pagesLine(totalCountLink, linkName, linkEndText,  defaultLink)
 
     let albumsDiv = CreateAlbumsList(data)
     albumsList.prepend(albumsDiv)
@@ -23,7 +19,7 @@ async function albums() {
 
 function CreateAlbumsList(data) {
     let albumsDiv = document.createElement("div")
-    data.forEach(album => {
+    data.forEach((album, index) => {
         let albumDiv = document.createElement("div")
         let albumTitle = document.createElement("h3")
         let albumUser = document.createElement("div")
@@ -33,7 +29,7 @@ function CreateAlbumsList(data) {
 
         albumUser.innerHTML = `<a href="./user.html?id=${album.userId}"> Author: ${album.user.name}</a>`
         albumPicturesNr.innerHTML = `Picture number: ${album.photos.length}`
-        albumTitle.innerHTML = `Album name: ${album.title}`
+        albumTitle.innerHTML = `${index} Album name: ${album.title}`
         albumPicture.src = album.photos[0].thumbnailUrl
         albumPictureLink.href = `./album.html?id=${album.id}`
 

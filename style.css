@@ -312,6 +312,8 @@ body>h1{
     text-align: center;
 }
 .pages-wrap{
+    display:flex;
+    flex-wrap: wrap;
    padding: 20px;
     font-size: 40px;
     border-radius: 20px;
@@ -343,4 +345,15 @@ a.on-this-page:hover{
     box-shadow: unset;
     color: gray;
     font-weight: 500;
+}
+.pages-quantity{
+    font-size: 30px;
+    border: unset;
+    margin-left: 20px;
+}
+.pages-quantity:hover{
+    color: rgb(0, 170, 28);
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: inset -1px 0px 18px 0px black;
 }

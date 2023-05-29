@@ -38,32 +38,37 @@ export default function nav() {
     }
     return header
 }
-export function pages(pagesNr) {
+export function pages(pagesNr, units) {
     let pageNow = getUrlParams('page')
     let pagesDiv = createHtmlElement("div", "pages-wrap")
     let firstPage = createHtmlElement("span", "page-first")
     let lastPage = createHtmlElement("span", "page-last")
     let nextPage = createHtmlElement("span", "page-next")
     let backPage = createHtmlElement("span", "page-back")
-    let firstPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=1`)
-    let lastPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${pagesNr}`)
+    let firstPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=1&units=${units}`)
+    let lastPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${pagesNr}&units=${units}`)
     if (!pageNow) {
         pageNow = 1;
+        units = 10;
     }
-    let nextPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) + 1}`)
-    let backPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) - 1}`)
-    let howMuchPages = createHtmlElement("input", "pages-quantity")
+    let nextPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) + 1}&units=${units}`)
+    let backPageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${parseInt(pageNow) - 1}&units=${units}`)
+    let howMuchPages = createHtmlElement("select", "pages-quantity")
+    let pagesOption = createHtmlElement("option", "pages-option")
+    
 
     firstPage.textContent = "First"
     lastPage.textContent = "Last"
     nextPage.textContent = ">>"
     backPage.textContent = "<<"
-    howMuchPages.type = "number"
-    howMuchPages.step = "10"
-    howMuchPages.value = "10"
-    howMuchPages.min = "10"
-    howMuchPages.max = "100"
-
+    pagesOption.textContent = "Units view"
+    howMuchPages.append(pagesOption)
+    for (let i = 1; i <= 10; i++) {
+        let pagesOption = createHtmlElement("option", "pages-option")
+        pagesOption.textContent = i * 5 
+        pagesOption.value = i * 5 
+        howMuchPages.append(pagesOption)
+    }
     firstPageLink.append(firstPage)
     lastPageLink.append(lastPage)
     nextPageLink.append(nextPage)
@@ -73,9 +78,9 @@ export function pages(pagesNr) {
 
     for (let i = 1; i <= pagesNr; i++) {
         let pageSpan = createHtmlElement("span", "page")
-        let pageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${i}`)
+        let pageLink = createHtmlElement("a", "page-link", `${location.pathname}?page=${i}&units=${units}`)
 
-        if (pageLink.href === location.href || pageNow === null && i === 1) {
+        if (pageLink.href === location.href || pageNow === 1 && i === 1) {
             pageSpan.textContent = "."
             pageLink.removeAttribute("href")
             pageLink.classList.add("on-this-page")
@@ -85,7 +90,7 @@ export function pages(pagesNr) {
         pageLink.append(pageSpan)
         pagesDiv.append(pageLink)
     }
-    if (pageNow === null || pageNow === '1') {
+    if (pageNow === 1 || pageNow === '1') {
         firstPageLink.classList.add("on-this-page")
         backPageLink.classList.add("on-this-page")
         firstPageLink.removeAttribute("href")
